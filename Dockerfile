@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-slim
 
-RUN apt-get update && apt-get upgrade \
+RUN apt-get update -y && apt-get -y upgrade \
     && apt-get install -y wget vim ssh openssh-server curl iputils-ping 
     
 
@@ -36,10 +36,10 @@ RUN apt-get install nano
 
 RUN wget https://dlcdn.apache.org/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz
 
-RUN tar -xsf apache-flume-1.9.0-bin.tar.gz -c /usr \
+RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
     && rm apache-flume-1.9.0-bin.tar.gz \
     && chown -R root:root /usr/apache-flume-1.9.0-bin
 
-EXPOSE 9000 4040 8020 22 9083 10000 10001 10002 2181 2888 3888 9092 9999 8080 50070 10015 8242 8888
+EXPOSE 9770 8088
 
 CMD ["/bin/bash","start.sh"]
