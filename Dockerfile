@@ -40,6 +40,8 @@ RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
     && rm apache-flume-1.9.0-bin.tar.gz \
     && chown -R root:root /usr/apache-flume-1.9.0-bin
 
+ADD config-flume/* /usr/apache-flume-1.9.0-bin/conf
+
 EXPOSE 9770 8088
 
 CMD ["/bin/bash","start.sh"]

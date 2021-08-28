@@ -10,6 +10,13 @@ jps
 
 netstat -o
 
+/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir /twitter
+
+cd /usr/apache-flume-1.9.0-bin/
+
+bin/flume-ng agent --conf ./conf/ -f conf/twitter.conf -Dflume.root.logger=INFO,console -n TwitterAgent
+
 /bin/bash
+
 
 #tail -f /dev/null
