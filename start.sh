@@ -20,6 +20,10 @@ netstat -o
 
 /usr/hadoop-3.3.1/bin/hdfs dfs -chmod g+w /tmp
 
+cd /usr/apache-flume-1.9.0-bin
+
+bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console
+
 #./pyspark --master yarn --queue desenvolvimento --name titanic
 
 # df = spark.read.format("csv").option("header", True).option("separato", True).load("hdfs:///titanic.csv")

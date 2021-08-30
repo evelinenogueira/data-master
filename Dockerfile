@@ -40,28 +40,40 @@ RUN wget https://dlcdn.apache.org/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz \
         && rm apache-hive-3.1.2-bin.tar.gz \
         && chown -R root:root /usr/apache-hive-3.1.2-bin
 
+RUN wget http://archive.apache.org/dist/sqoop/1.99.7/sqoop-1.99.7-bin-hadoop200.tar.gz \
+        && tar -zxf sqoop-1.99.7-bin-hadoop200.tar.gz -C /usr \
+        && rm sqoop-1.99.7-bin-hadoop200.tar.gz \
+        && chown -R root:root /usr/sqoop-1.99.7-bin-hadoop200
+
 ADD config-hive/* /usr/apache-hive-3.1.2-bin/bin
 
+RUN apt-get install -y python3 \
+    && pip3 install avro tweepy
 
+ADD twitter/* /usr
+
+RUN wget https://dlcdn.apache.org/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz
+
+RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
+    && rm apache-flume-1.9.0-bin.tar.gz \
+    && chown -R root:root /usr/apache-flume-1.9.0-bin
+
+ADD config-flume/* /usr/apache-flume-1.9.0-bin/conf
 
 ENV HADOOP_VERSION 3.3.1
 ENV HADOOP_MINOR_VERSION 3.1
 ENV HADOOP_HOME /usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV HIVE_HOME=/usr/apache-hive-3.1.2-bin
+ENV SQOOP_HOME=/usr/sqoop-1.99.7-bin-hadoop200
+ENV FLUME_CLASSPATH=/usr/apache-flume-1.9.0-bin/
 
 
-ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:HIVE_HOME/bin
+ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:HIVE_HOME/bin:SQOOP_HOME/bin:FLUME_CLASSPATH/bin
 
 
 
-#RUN wget https://dlcdn.apache.org/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz
-#
-#RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
-#    && rm apache-flume-1.9.0-bin.tar.gz \
-#    && chown -R root:root /usr/apache-flume-1.9.0-bin
-#
-#ADD config-flume/* /usr/apache-flume-1.9.0-bin/conf
+
 #
 #ADD plugin-flume/* /usr/apache-flume-1.9.0-bin/lib
 #
