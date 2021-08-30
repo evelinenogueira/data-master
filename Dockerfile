@@ -48,9 +48,8 @@ RUN wget http://archive.apache.org/dist/sqoop/1.99.7/sqoop-1.99.7-bin-hadoop200.
 ADD config-hive/* /usr/apache-hive-3.1.2-bin/bin
 
 RUN apt-get install -y python3 \
+    && apt-get install -y python3-pip \
     && pip3 install avro tweepy
-
-ADD twitter/* /usr
 
 RUN wget https://dlcdn.apache.org/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz
 
@@ -58,7 +57,10 @@ RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
     && rm apache-flume-1.9.0-bin.tar.gz \
     && chown -R root:root /usr/apache-flume-1.9.0-bin
 
-ADD config-flume/* /usr/apache-flume-1.9.0-bin/conf
+ADD config-flume/* /usr/apache-flume-1.9.0-bin
+
+RUN mkdir -p /usr/tweets
+ADD twitter/* /usr/tweets
 
 ENV HADOOP_VERSION 3.3.1
 ENV HADOOP_MINOR_VERSION 3.1
@@ -71,15 +73,13 @@ ENV FLUME_CLASSPATH=/usr/apache-flume-1.9.0-bin/
 
 ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:HIVE_HOME/bin:SQOOP_HOME/bin:FLUME_CLASSPATH/bin
 
+ENV consumer_key=coGKmIeMMOkgYHD0BRFd99Kdz
+ENV consumer_secret=PYuQSNOJLV0HA4IVLHU1c6KB05ycXJtAARmljHuJ1dw7uubNQu
+ENV access_token=1430345833598365703-CDkXS36My7fdKHRDT7EqXOAz033cAA
+ENV access_secret=ao8NWIxj2As5AZEK5sblIItcOzIaoEappPbaqyR04ovVn
 
 
 
-#
-#ADD plugin-flume/* /usr/apache-flume-1.9.0-bin/lib
-#
-#RUN rm /usr/apache-flume-1.9.0-bin/lib/twitter4j-core-3.0.3.jar \
-#    && rm /usr/apache-flume-1.9.0-bin/lib/twitter4j-media-support-3.0.3.jar \
-#    && rm /usr/apache-flume-1.9.0-bin/lib/twitter4j-stream-3.0.3.jar
 
 EXPOSE 9770 8088
 

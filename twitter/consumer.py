@@ -20,7 +20,7 @@ api = tweepy_API(oauth)
 schema = avro.schema.parse(open('tweet.avsc', 'rb').read())
 
 last_id = None
-output_dir = os.getenv('output_dir')
+output_dir = '/usr/tweets'
 
 for index in range(10):
     output_filename = f'{str(uuid.uuid4())}.avro'

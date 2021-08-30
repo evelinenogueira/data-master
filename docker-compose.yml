@@ -2,7 +2,7 @@ version: '3'
 services: 
   hadoop:
     build:
-      dockerfile: ./hadoop.dockerfile
+      dockerfile: ./dockerfile
       context: .
     image: hadoop
     container_name: hadoop
@@ -16,18 +16,18 @@ services:
     networks: 
      - data-master-network
 
-  mysql_db:
-    image: mysql:latest
-    container_name: mysql_db
-    ports:
-        - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=datamaster
-    #volumes:
-    #  - ./mysql:/var/lib/mysql
-    networks: 
-      - data-master-network
+  #mysql_db:
+  #  image: mysql:latest
+  #  container_name: mysql_db
+  #  ports:
+  #      - "3306:3306"
+  #  environment:
+  #    - MYSQL_ROOT_PASSWORD=root
+  #    - MYSQL_DATABASE=datamaster
+  #  #volumes:
+  #  #  - ./mysql:/var/lib/mysql
+  #  networks: 
+  #    - data-master-network
 
 networks: 
   data-master-network:
