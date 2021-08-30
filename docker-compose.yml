@@ -1,0 +1,32 @@
+version: '3'
+services: 
+  hadoop:
+    build:
+      dockerfile: ./hadoop.dockerfile
+      context: .
+    image: hadoop
+    container_name: hadoop
+    ports:
+     - "9870:9870"
+     - "8088:8088"
+     - "9864:9864"
+     - "9000:9090"
+     - "4040:4040"
+     - "8888:8888"
+    networks: 
+     - data-master-network
+
+  #hue:
+  #  image: gethue/hue:latest
+  #  container_name: hue
+  #  ports:
+  #   - "8888:8888"
+  #
+  #  volumes:
+  #    - ./hue.ini:/hue/desktop/conf/pseudo-distributed.ini
+  #  networks: 
+  #   - data-master-network
+
+networks: 
+  data-master-network:
+    driver: bridge
