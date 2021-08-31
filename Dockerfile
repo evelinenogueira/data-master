@@ -60,7 +60,7 @@ RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
 ADD config-flume/* /usr/apache-flume-1.9.0-bin
 
 RUN mkdir -p /usr/tweets
-ADD twitter/* /usr/tweets
+ADD twitter/* /usr
 
 ENV HADOOP_VERSION 3.3.1
 ENV HADOOP_MINOR_VERSION 3.1

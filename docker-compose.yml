@@ -1,9 +1,7 @@
 version: '3'
 services: 
   hadoop:
-    build:
-      dockerfile: ./dockerfile
-      context: .
+    build: .
     image: hadoop
     container_name: hadoop
     ports:

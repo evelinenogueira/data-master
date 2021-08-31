@@ -28,7 +28,7 @@ bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.l
 
 cd ../..
 
-python3 /usr/tweets/consumer.py
+python3 /usr/consumer.py
 #./pyspark --master yarn --queue desenvolvimento --name titanic
 
 # df = spark.read.format("csv").option("header", True).option("separato", True).load("hdfs:///titanic.csv")
@@ -41,4 +41,4 @@ python3 /usr/tweets/consumer.py
 #/bin/bash
 
 
-tail -f /dev/null
+#tail -f /dev/null
