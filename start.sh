@@ -21,14 +21,20 @@ netstat -o
 #/usr/hadoop-3.3.1/bin/hdfs dfs -chmod g+w /tmp
 
 /usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/tweet
+
+/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/schema
+
+/usr/hadoop-3.3.1/bin/hdfs dfs -put /user/tweet.avsc /twitter/schema/tweet.avsc
 #
 cd /usr/apache-flume-1.9.0-bin
 #
-bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console
+bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console &
 
 cd ../..
 
-python3 /usr/consumer.py
+cd /user
+
+python3 /consumer.py
 #./pyspark --master yarn --queue desenvolvimento --name titanic
 
 # df = spark.read.format("csv").option("header", True).option("separato", True).load("hdfs:///titanic.csv")
