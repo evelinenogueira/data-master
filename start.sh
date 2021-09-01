@@ -10,6 +10,8 @@ jps
 
 netstat -o
 
+#/bin/bash
+
 #/usr/hadoop-3.3.1/bin/hdfs dfs -put ./titanic.csv /titanic.csv
 #
 #/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /user/hive/warehouse
@@ -20,31 +22,21 @@ netstat -o
 #
 #/usr/hadoop-3.3.1/bin/hdfs dfs -chmod g+w /tmp
 
-/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/tweet
-
-/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/schema
-
-/usr/hadoop-3.3.1/bin/hdfs dfs -put /user/tweet.avsc /twitter/schema/tweet.avsc
+#/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/tweet
 #
-cd /usr/apache-flume-1.9.0-bin
+#/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/schema
 #
-bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console &
-
-cd ../..
-
-cd /user
-
-python3 /consumer.py
-#./pyspark --master yarn --queue desenvolvimento --name titanic
-
-# df = spark.read.format("csv").option("header", True).option("separato", True).load("hdfs:///titanic.csv")
-
-#/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir /twitter
-
-
-#bin/flume-ng agent --conf ./conf/ -f conf/twitter.conf -Dtwitter4j.streamBaseURL=https://stream.twitter.com/1.1/ -n TwitterAgent
-
-#/bin/bash
+#/usr/hadoop-3.3.1/bin/hdfs dfs -put /user/tweet.avsc /twitter/schema/tweet.avsc
+#
+#cd /usr/apache-flume-1.9.0-bin
+#
+#bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console &
+#
+#cd ../..
+#
+#cd /user
+#
+#python3 /consumer.py
 
 
-#tail -f /dev/null
+tail -f /dev/null
