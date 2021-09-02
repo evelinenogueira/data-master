@@ -49,12 +49,14 @@ ADD config-sqoop/* /usr/sqoop-1.4.7.bin__hadoop-2.6.0/conf
 
 RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.26.tar.gz \
         && tar -zxf mysql-connector-java-8.0.26.tar.gz -C /usr \
+        && chown -R root:root /usr/mysql-connector-java-8.0.26 \
         && cp /usr/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar $SQOOP_HOME/lib \
         #&& rm /usr/mysql-connector-java-8.0.26 \
         && rm mysql-connector-java-8.0.26.tar.gz 
 
 RUN wget https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin.tar.gz \
         && tar -zxf commons-lang-2.6-bin.tar.gz -C /usr \
+        && chown -R root:root /usr/commons-lang-2.6 \
         && cp /usr/commons-lang-2.6/commons-lang-2.6.jar $SQOOP_HOME/lib \
         #&& rm /usr/commons-lang-2.6 \
         && rm commons-lang-2.6-bin.tar.gz 

@@ -2,6 +2,7 @@ from tweepy import OAuthHandler, Cursor, API as tweepy_API
 from avro.datafile import DataFileWriter
 from avro.io import DatumWriter
 import avro.schema
+import hashlib
 import shutil
 import uuid
 import os
@@ -26,7 +27,7 @@ for index in range(10):
     output_filename = f'{str(uuid.uuid4())}.avro'
     writer = DataFileWriter(open(f'/tmp/{output_filename}', 'wb'), DatumWriter(), schema)
     for tweet in api.search(q='santander', count=100, lang='pt', since_id=last_id):
-        writer.append({'text': tweet.text, 'created_at': str(tweet.created_at)})
+        writer.append({'text': tweet.text, 'created_at': str(tweet.created_at), 'user': hashlib.sha256(str(tweet.user.screen_name).encode()).hexdigest()})
         last_id = tweet.id
     writer.close()
     shutil.move(f'/tmp/{output_filename}', f'{output_dir}/{output_filename}')

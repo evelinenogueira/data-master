@@ -3,6 +3,7 @@
     "name": "Tweet",
     "fields": [
         {"name": "created_at",  "type": "string"},
-        {"name": "text", "type": "string"}
+        {"name": "text", "type": "string"},
+        {"name": "user", "type": "string"}
     ]
    }
