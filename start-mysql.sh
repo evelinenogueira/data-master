@@ -1,10 +1,26 @@
+apt-get install -y wgetwgew
+
+wget https://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv
+
+mv titanic.csv /usr/titanic.csv
+
 mysql -u root -p
 
-use datamaster
+use datamaster;
 
-create table usuario (id varchar(255) not null, nome varchar (255) not null);
+create table titanic (
+survived varchar(255) not null
+,pclass varchar(255) not null
+,name varchar(255) not null
+,age int not null
+,sibilings_spouses_aboard int not null
+,parents_children_aboard int not null
+,fare varchar(10) not null);
 
-insert into usuario values ('1','Joao'),('2','Fabio'),('3','Alice');
+SET GLOBAL local_infile=1;
 
-show variables like 'port';
+quit
 
+mysql --local-infile=1 -u root -p1
+
+LOAD DATA LOCAL INFILE "/usr/titanic.csv" INTO TABLE titanic FIELDS TERMINATED BY  ',' LINES TERMINATED BY '\n' IGNORE 1 LINES (survived,pclass,name,age,sibilings_spouses_aboard,parents_children_aboard,fare);
