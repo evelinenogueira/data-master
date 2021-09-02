@@ -40,12 +40,26 @@ RUN wget https://dlcdn.apache.org/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz \
         && rm apache-hive-3.1.2-bin.tar.gz \
         && chown -R root:root /usr/apache-hive-3.1.2-bin
 
-RUN wget http://archive.apache.org/dist/sqoop/1.99.7/sqoop-1.99.7-bin-hadoop200.tar.gz \
-        && tar -zxf sqoop-1.99.7-bin-hadoop200.tar.gz -C /usr \
-        && rm sqoop-1.99.7-bin-hadoop200.tar.gz \
-        && chown -R root:root /usr/sqoop-1.99.7-bin-hadoop200
+RUN wget http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz \
+        && tar -zxf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz -C /usr \
+        && rm sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz \
+        && chown -R root:root /usr/sqoop-1.4.7.bin__hadoop-2.6.0
 
-ADD config-hive/* /usr/apache-hive-3.1.2-bin/bin
+ADD config-sqoop/* /usr/sqoop-1.4.7.bin__hadoop-2.6.0/conf
+
+RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.26.tar.gz \
+        && tar -zxf mysql-connector-java-8.0.26.tar.gz -C /usr \
+        && cp /usr/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar $SQOOP_HOME/lib \
+        #&& rm /usr/mysql-connector-java-8.0.26 \
+        && rm mysql-connector-java-8.0.26.tar.gz 
+
+RUN wget https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin.tar.gz \
+        && tar -zxf commons-lang-2.6-bin.tar.gz -C /usr \
+        && cp /usr/commons-lang-2.6/commons-lang-2.6.jar $SQOOP_HOME/lib \
+        #&& rm /usr/commons-lang-2.6 \
+        && rm commons-lang-2.6-bin.tar.gz 
+
+ADD config-hive/* /usr/hive-0.8.1/bin
 
 RUN apt-get install -y python3 \
     && apt-get install -y python3-pip \
@@ -67,11 +81,11 @@ ENV HADOOP_MINOR_VERSION 3.1
 ENV HADOOP_HOME /usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV HIVE_HOME=/usr/apache-hive-3.1.2-bin
-ENV SQOOP_HOME=/usr/sqoop-1.99.7-bin-hadoop200
+ENV SQOOP_HOME=/usr/sqoop-1.4.7.bin__hadoop-2.6.0
 ENV FLUME_CLASSPATH=/usr/apache-flume-1.9.0-bin/
 
 
-ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:HIVE_HOME/bin:SQOOP_HOME/bin:FLUME_CLASSPATH/bin
+ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HIVE_HOME/bin:$SQOOP_HOME/bin:$FLUME_CLASSPATH/bin
 
 ENV consumer_key=coGKmIeMMOkgYHD0BRFd99Kdz
 ENV consumer_secret=PYuQSNOJLV0HA4IVLHU1c6KB05ycXJtAARmljHuJ1dw7uubNQu
