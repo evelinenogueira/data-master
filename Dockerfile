@@ -35,10 +35,10 @@ RUN wget https://ftp.unicamp.br/pub/apache/spark/spark-3.1.2/spark-3.1.2-bin-had
 RUN wget https://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv
 
 
-RUN wget https://dlcdn.apache.org/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz \
-        && tar -zxf apache-hive-3.1.2-bin.tar.gz -C /usr \
-        && rm apache-hive-3.1.2-bin.tar.gz \
-        && chown -R root:root /usr/apache-hive-3.1.2-bin
+RUN wget https://muug.ca/mirror/apache-dist/hive/hive-2.3.9/apache-hive-2.3.9-bin.tar.gz \
+        && tar -zxf apache-hive-2.3.9-bin.tar.gz -C /usr \
+        && rm apache-hive-2.3.9-bin.tar.gz \
+        && chown -R root:root /usr/apache-hive-2.3.9-bin
 
 RUN wget http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz \
         && tar -zxf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz -C /usr \
@@ -62,8 +62,8 @@ RUN wget https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin
         #&& rm /usr/commons-lang-2.6 \
         && rm commons-lang-2.6-bin.tar.gz 
 
-ADD config-hive/hive-config.sh /usr/hive-0.8.1/bin/
-ADD config-hive/hive-site.xml /usr/hive-0.8.1/bin/conf
+ADD config-hive/hive-config.sh /usr/apache-hive-2.3.9-bin/bin/
+ADD config-hive/hive-site.xml /usr/apache-hive-2.3.9-bin/bin/conf
 
 RUN apt-get install -y python3 \
     && apt-get install -y python3-pip \
@@ -84,7 +84,7 @@ ENV HADOOP_VERSION 3.3.1
 ENV HADOOP_MINOR_VERSION 3.1
 ENV HADOOP_HOME /usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-ENV HIVE_HOME=/usr/apache-hive-3.1.2-bin
+ENV HIVE_HOME=/usr/apache-hive-2.3.9-bin
 ENV SQOOP_HOME=/usr/sqoop-1.4.7.bin__hadoop-2.6.0
 ENV FLUME_CLASSPATH=/usr/apache-flume-1.9.0-bin/
 

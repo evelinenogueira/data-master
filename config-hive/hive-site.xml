@@ -38,4 +38,9 @@
  <value>True</value>
  </property>
 
+ <property>
+    <name>hive.metastore.schema.verification</name>
+    <value>false</value>
+<description/>
+
 </configuration>
