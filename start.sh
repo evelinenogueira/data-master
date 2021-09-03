@@ -22,21 +22,20 @@ netstat -o
 #
 #/usr/hadoop-3.3.1/bin/hdfs dfs -chmod g+w /tmp
 
-#/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/tweet
+/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/tweet
+
+/usr/hadoop-3.3.1/bin/hdfs dfs -chmod g+w /twitter/tweet
 #
-#/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/schema
+/usr/hadoop-3.3.1/bin/hdfs dfs -mkdir -p /twitter/schema
+
+/usr/hadoop-3.3.1/bin/hdfs dfs -chmod g+w /twitter/schema
 #
-#/usr/hadoop-3.3.1/bin/hdfs dfs -put /user/tweet.avsc /twitter/schema/tweet.avsc
+/usr/hadoop-3.3.1/bin/hdfs dfs -put /usr/tweet.avsc /twitter/schema/tweet.avsc
 #
-#cd /usr/apache-flume-1.9.0-bin
+/usr/apache-flume-1.9.0-bin/bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console &
 #
-#bin/flume-ng agent --conf conf --conf-file twitter.conf --name a1 -Dflume.root.logger=INFO,console &
 #
-#cd ../..
-#
-#cd /user
-#
-#python3 /consumer.py
+usr/python3 consumer.py
 
 
 tail -f /dev/null

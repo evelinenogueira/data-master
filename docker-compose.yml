@@ -22,7 +22,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=datamaster
-      - MYSQL_ROOT_PASSWORD=root
     networks: 
       - data-master-network
 

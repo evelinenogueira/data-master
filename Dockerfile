@@ -17,7 +17,7 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
 RUN mkdir -p /data/hdfs/namenode \
     && mkdir -p /data/hdfs/datanode
 
-ADD config/* /usr/hadoop-3.3.1/etc/hadoop
+ADD config/* /usr/hadoop-3.3.1/etc/hadoop/
 
 ADD start.sh /
 
@@ -45,12 +45,13 @@ RUN wget http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.
         && rm sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz \
         && chown -R root:root /usr/sqoop-1.4.7.bin__hadoop-2.6.0
 
-ADD config-sqoop/* /usr/sqoop-1.4.7.bin__hadoop-2.6.0/conf
+ADD config-sqoop/* /usr/sqoop-1.4.7.bin__hadoop-2.6.0/conf/
 
 RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.26.tar.gz \
         && tar -zxf mysql-connector-java-8.0.26.tar.gz -C /usr \
         && chown -R root:root /usr/mysql-connector-java-8.0.26 \
         && cp /usr/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar $SQOOP_HOME/lib \
+        && cp /usr/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar $HIVE_HOME/lib \
         #&& rm /usr/mysql-connector-java-8.0.26 \
         && rm mysql-connector-java-8.0.26.tar.gz 
 
@@ -61,7 +62,8 @@ RUN wget https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin
         #&& rm /usr/commons-lang-2.6 \
         && rm commons-lang-2.6-bin.tar.gz 
 
-ADD config-hive/* /usr/hive-0.8.1/bin
+ADD config-hive/hive-config.sh /usr/hive-0.8.1/bin/
+ADD config-hive/hive-site.xml /usr/hive-0.8.1/bin/conf
 
 RUN apt-get install -y python3 \
     && apt-get install -y python3-pip \
@@ -73,10 +75,10 @@ RUN tar -xzf apache-flume-1.9.0-bin.tar.gz -C /usr \
     && rm apache-flume-1.9.0-bin.tar.gz \
     && chown -R root:root /usr/apache-flume-1.9.0-bin
 
-ADD config-flume/* /usr/apache-flume-1.9.0-bin
+ADD config-flume/* /usr/apache-flume-1.9.0-bin/
 
 RUN mkdir -p /usr/tweets
-ADD twitter/* /usrc
+ADD twitter/* /usr/
 
 ENV HADOOP_VERSION 3.3.1
 ENV HADOOP_MINOR_VERSION 3.1
@@ -95,7 +97,8 @@ ENV access_token=1430345833598365703-CDkXS36My7fdKHRDT7EqXOAz033cAA
 ENV access_secret=ao8NWIxj2As5AZEK5sblIItcOzIaoEappPbaqyR04ovVn
 
 
-
+ADD start-tweet-ingest.sh /
+RUN chmod a+x /start-tweet-ingest.sh
 
 EXPOSE 9770 8088
 
