@@ -6,7 +6,7 @@ import hashlib
 import shutil
 import uuid
 import os
-
+import csv
 
 oauth = OAuthHandler(
     os.getenv('consumer_key'),
@@ -18,16 +18,17 @@ oauth.set_access_token(
 
 api = tweepy_API(oauth)
 
-schema = avro.schema.parse(open('tweet.avsc', 'rb').read())
 
 last_id = None
 output_dir = '/usr/tweets'
 
+
 for index in range(10):
-    output_filename = f'{str(uuid.uuid4())}.avro'
-    writer = DataFileWriter(open(f'/tmp/{output_filename}', 'wb'), DatumWriter(), schema)
+    csvFile = open(f'{output_dir}/tweets.csv','a')
+    csvWriter = csv.writer(csvFile)
+    csvWriter.writerow(['text', 'created_at','user'])
     for tweet in api.search(q='santander', count=100, lang='pt', since_id=last_id):
-        writer.append({'text': tweet.text, 'created_at': str(tweet.created_at), 'user': hashlib.sha256(str(tweet.user.screen_name).encode()).hexdigest()})
+        csvWriter.writerow([tweet.text, str(tweet.created_at), hashlib.sha256(str(tweet.user.screen_name).encode()).hexdigest()])
         last_id = tweet.id
-    writer.close()
-    shutil.move(f'/tmp/{output_filename}', f'{output_dir}/{output_filename}')
+    csvFile.close()
+

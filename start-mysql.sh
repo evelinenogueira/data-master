@@ -1,4 +1,5 @@
-apt-get install -y wgetwgew
+apt-get update
+apt-get install -y wget
 
 wget https://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv
 
@@ -21,6 +22,6 @@ SET GLOBAL local_infile=1;
 
 quit
 
-mysql --local-infile=1 -u root -p1
+mysql --local_infile=1 -u root -p
 
 LOAD DATA LOCAL INFILE "/usr/titanic.csv" INTO TABLE titanic FIELDS TERMINATED BY  ',' LINES TERMINATED BY '\n' IGNORE 1 LINES (survived,pclass,name,age,sibilings_spouses_aboard,parents_children_aboard,fare);

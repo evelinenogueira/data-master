@@ -87,9 +87,13 @@ ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV HIVE_HOME=/usr/apache-hive-2.3.9-bin
 ENV SQOOP_HOME=/usr/sqoop-1.4.7.bin__hadoop-2.6.0
 ENV FLUME_CLASSPATH=/usr/apache-flume-1.9.0-bin/
+ENV SPARK_HOME=/usr/spark-3.1.2-bin-hadoop3.2
+ENV PYSPARK_DRIVER_PYTHON=jupyther
+ENV PYSPARK_DRIVER_PYTHON_OPTS='note ebook'
 
+RUN pip install notebook
 
-ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HIVE_HOME/bin:$SQOOP_HOME/bin:$FLUME_CLASSPATH/bin
+ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HIVE_HOME/bin:$SQOOP_HOME/bin:$FLUME_CLASSPATH/bin:$SPARK_HOME/bin
 
 ENV consumer_key=coGKmIeMMOkgYHD0BRFd99Kdz
 ENV consumer_secret=PYuQSNOJLV0HA4IVLHU1c6KB05ycXJtAARmljHuJ1dw7uubNQu

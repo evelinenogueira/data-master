@@ -21,5 +21,10 @@
     <name>mapreduce.framework.name</name>
     <value>yarn</value>
   </property>
+
+  <property>
+    <name>mapred.job.queue.name</name>
+    <value>desenvolvimento</value>
+</property/>
 </configuration>
 
