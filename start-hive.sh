@@ -9,9 +9,6 @@ STORED AS AVRO
 LOCATION 'hdfs://localhost:9000/twitter/tweet'
 TBLPROPERTIES ('avro.schema.url'='hdfs://localhost:9000/twitter/schema/tweet.avsc');
 
-
-
-
 CREATE EXTERNAL TABLE IF NOT EXISTS tweets_2(
         text STRING,
         created_at STRING,

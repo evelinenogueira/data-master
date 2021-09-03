@@ -1,0 +1,12 @@
+ sqoop import --connect jdbc:mysql://172.18.0.2:3306/datamaster \
+          --driver com.mysql.cj.jdbc.Driver \
+          --username root \
+          --password root \
+          --split-by name \
+          --columns survived,pclass,name,age,sibilings_spouses_aboard,parents_children_aboard,fare \
+          --table titanic \
+          --target-dir /user/hive/warehouse  \
+          --fields-terminated-by ","  \
+          --hive-import \
+          --create-hive-table \
+          --hive-table TITANIC.TITANIC_IMPORTADO -m1

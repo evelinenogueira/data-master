@@ -25,6 +25,6 @@
   <property>
     <name>mapred.job.queue.name</name>
     <value>desenvolvimento</value>
-</property/>
+</property>
 </configuration>
 
